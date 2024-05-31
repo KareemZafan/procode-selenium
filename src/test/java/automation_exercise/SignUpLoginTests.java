@@ -1,24 +1,23 @@
 package automation_exercise;
 
-import dev.failsafe.internal.util.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HomePage;
+import pages.SignUp_Login_Page;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
-public class HomePageTests {
+public class SignUpLoginTests {
+
     private WebDriver driver;
     private HomePage homePage;
+    private SignUp_Login_Page signUpLoginPage;
 
     @BeforeClass
     void setUp() {
@@ -28,28 +27,32 @@ public class HomePageTests {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         homePage = new HomePage(driver);
+        signUpLoginPage = new SignUp_Login_Page(driver);
+
     }
 
     @BeforeMethod
     void setUpMethod() {
         homePage.open();
-    }
-
-
-    @Test
-    void testAdvertisementIsVisible() {
-      homePage.navigateTo("Products");
-      assertTrue(driver.findElement(By.cssSelector("img#sale_image")).isDisplayed());
+        homePage.navigateTo("Signup / Login");
     }
 
     @Test
-    void testCartIsEmpty() {
-        homePage.navigateTo("Cart");
-        assertTrue(driver.findElement(By.id("empty_cart")).getText().contains("Cart is empty!"));
+    void testRegistration() {
+        //Actions
+        signUpLoginPage.register("Kareem Mohamed", "test2@testTTTETst.com");
+
+
+        //Assertion
+        String headerText = driver.findElement(By.cssSelector("div.login-form > h2 > b")).getText();
+        assertEquals(headerText, "ENTER ACCOUNT INFORMATION");
+
     }
+
 
     @AfterClass
     void tearDown() {
         driver.quit();
     }
+
 }
