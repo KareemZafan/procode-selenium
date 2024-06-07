@@ -62,7 +62,51 @@ public class SignUp {
         elementActions.click(By.xpath(String.format("//label[contains(text(),'%s')]/..//input", text)));
     }
 
-    //todo add rest of functionalities
+    public void enterFirstName(String firstName) {
+        elementActions.type(By.id("first_name"), firstName);
+    }
+
+    public void enterLastName(String lastName) {
+        elementActions.type(By.id("last_name"), lastName);
+    }
+
+    public void enterCompany(String company) {
+        elementActions.type(By.id("company"), company);
+    }
+
+    public void enterAddress1(String address) {
+        elementActions.type(By.id("address1"), address);
+    }
+
+    public void selectCountry(String country) {
+        elementActions.selectOptionWithVisibleText(By.id("country"), country);
+    }
+
+    public void enterState(String state) {
+        elementActions.type(By.id("state"), state);
+    }
+
+    public void enterCity(String city) {
+        elementActions.type(By.id("city"), city);
+    }
+
+    public void enterZipCode(String zipCode) {
+        elementActions.type(By.id("zipcode"), zipCode);
+    }
+
+    public void enterMobileNumber(String mobile) {
+        elementActions.type(By.id("mobile_number"), mobile);
+    }
+
+    public void clickCreateAccount() {
+        elementActions.click(By.cssSelector("button[data-qa='create-account']"));
+    }
+
+    public boolean isAccountCreated() {
+        return elementActions.
+                getElementText(By.cssSelector("h2[data-qa='account-created'] > b"))
+                .equalsIgnoreCase("ACCOUNT CREATED!");
+    }
 
     public enum Gender {
         MALE, FEMALE

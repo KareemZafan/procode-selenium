@@ -10,9 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class Element {
+    Actions actions;
     private WebDriver driver;
     private WebDriverWait wait;
-    Actions actions;
 
     public Element(WebDriver driver) {
         this.driver = driver;
@@ -58,19 +58,31 @@ public class Element {
 
     public Element clear(By locator) {
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(locator)));
-         driver.findElement(locator).clear();
-         return this;
+        driver.findElement(locator).clear();
+        return this;
     }
 
-    public Element clickAndHold(By locator){
+    public Element clickAndHold(By locator) {
         wait.until(ExpectedConditions.elementToBeClickable(locator));
         actions.clickAndHold(driver.findElement(locator)).perform();
         return this;
     }
 
-    public boolean isSelected(By locator){
+    public Element dragAndDrop(By source, By target) {
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(source)));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(target)));
+        actions.dragAndDrop(driver.findElement(source), driver.findElement(target));
+        return this;
+    }
+
+    public boolean isSelected(By locator) {
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(locator)));
-        return  driver.findElement(locator).isSelected();
+        return driver.findElement(locator).isSelected();
+    }
+
+    public boolean isDisplayed(By locator) {
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(locator)));
+        return driver.findElement(locator).isDisplayed();
     }
 
     public boolean dropDownOptionIsSelected(By locator, String optionText) {
@@ -80,6 +92,5 @@ public class Element {
 
     }
 
-
-
+    //todo advanced touches .... scrolling ..
 }
