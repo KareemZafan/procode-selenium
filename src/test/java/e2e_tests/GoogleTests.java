@@ -1,31 +1,29 @@
 package e2e_tests;
 
-import browser_actions.DriverFactory;
+import base_test.BaseTests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class GoogleTests {
+public class GoogleTests extends BaseTests {
 
     private WebDriver driver;
 
 
-    @BeforeTest
-    void setUp() {
-        driver = DriverFactory.getDriver(DriverFactory.BrowserType.CHROME);
-        driver.manage().window().maximize();
+    @BeforeClass
+    void setUpClassTests() {
+        driver = driverFactory.getDriver();
     }
 
     @BeforeMethod
-    void openUrl() {
+    public void openUrl() {
         driver.get("https://www.google.com/");
     }
 
@@ -47,9 +45,4 @@ public class GoogleTests {
         assertEquals(driver.getTitle(), "Google");
     }
 
-
-    @AfterTest
-    void closeSession() {
-        driver.quit();
-    }
 }

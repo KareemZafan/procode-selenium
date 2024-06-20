@@ -14,9 +14,10 @@ public class SignUp {
     }
 
     public void register(String name, String email) {
-        elementActions.type(By.cssSelector("div.signup-form input[name='name']"), name);
-        elementActions.type(By.cssSelector("div.signup-form input[name='email']"), email);
-        elementActions.click(By.cssSelector("div.signup-form button"));
+        elementActions
+                .type(By.cssSelector("div.signup-form input[name='name']"), name)
+                .type(By.cssSelector("div.signup-form input[name='email']"), email)
+                .click(By.cssSelector("div.signup-form button"));
     }
 
     public void enterTitle(Gender gender) {

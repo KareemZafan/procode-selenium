@@ -4,19 +4,20 @@ import element_actions.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class Login {
+public class LoginPage {
     private WebDriver driver;
     private Element elementActions;
 
-    public Login(WebDriver driver) {
+    public LoginPage(WebDriver driver) {
         this.driver = driver;
         elementActions = new Element(driver);
     }
 
-    public Login login(String email, String password) {
-        driver.findElement(By.cssSelector("div.login-form input[name='email']")).sendKeys(email);
-        driver.findElement(By.cssSelector("div.login-form input[name='password']")).sendKeys(password);
-        driver.findElement(By.cssSelector("div.login-form button")).click();
+    public LoginPage login(String email, String password) {
+        elementActions
+                .type(By.cssSelector("div.login-form input[name='email']"), email)
+                .type(By.cssSelector("div.login-form input[name='password']"), password)
+                .click(By.cssSelector("div.login-form button"));
         return this;
     }
 
@@ -24,13 +25,12 @@ public class Login {
         return elementActions.getElementText(By.cssSelector("a > b"));
     }
 
-    public void logout(){
+    public void logout() {
         elementActions.click(By.partialLinkText("logout"));
     }
 
     public void deleteAccount() {
         elementActions.click(By.partialLinkText("Delete Account"));
     }
-
 
 }

@@ -1,7 +1,9 @@
 package element_actions;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -13,6 +15,7 @@ public class Element {
     Actions actions;
     private WebDriver driver;
     private WebDriverWait wait;
+    private JavascriptExecutor javascriptExecutor;
 
     public Element(WebDriver driver) {
         this.driver = driver;
@@ -91,6 +94,34 @@ public class Element {
         return select.getAllSelectedOptions().contains(optionText);
 
     }
+
+    public Element scrollToEnd(){
+        javascriptExecutor = (JavascriptExecutor) driver;
+            javascriptExecutor.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+        return this;
+    }
+
+    public Element scrollBy(int start, int end) {
+        javascriptExecutor = (JavascriptExecutor) driver;
+        javascriptExecutor.executeScript(String.format("window.scrollBy(%d,%d)",start,end));
+        return this;
+    }
+
+    public Element scrollToElement(By locator) {
+        javascriptExecutor = (JavascriptExecutor) driver;
+        WebElement element = driver.findElement(locator);
+        javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);",element);
+        return this;
+    }
+
+    public boolean AreElementsLocated(){
+        javascriptExecutor = (JavascriptExecutor) driver;
+        return javascriptExecutor.
+                executeScript("return document.readyState")
+                .toString()
+                .equalsIgnoreCase("complete");
+    }
+
 
     //todo advanced touches .... scrolling ..
 }
