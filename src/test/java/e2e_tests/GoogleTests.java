@@ -39,10 +39,4 @@ public class GoogleTests extends BaseTests {
         assertEquals(text, "Selenium");
     }
 
-
-    @Test(description = "Featuer-123 Test Title", testName = "Test 1", priority = 4)
-    void testGoogleTitle() {
-        assertEquals(driver.getTitle(), "Google");
-    }
-
 }

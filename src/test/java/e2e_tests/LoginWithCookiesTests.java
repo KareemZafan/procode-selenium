@@ -1,15 +1,12 @@
 package e2e_tests;
 
 import base_test.BaseTests;
-import browser_actions.BrowserActions;
-import element_actions.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -21,11 +18,8 @@ public class LoginWithCookiesTests extends BaseTests {
     private WebDriver driver;
 
     @BeforeClass
-    void setUpClassTests() {
+    void setUp() {
         driver = driverFactory.getDriver();
-        browserActions = new BrowserActions(driver);
-        elementActions = new Element(driver);
-
     }
 
     @BeforeMethod
@@ -63,8 +57,4 @@ public class LoginWithCookiesTests extends BaseTests {
         assertTrue(driver.findElement(By.tagName("h1")).getText().contains("expired"));
     }
 
-    @AfterClass
-    void closeSessions() {
-        driver.quit();
-    }
 }

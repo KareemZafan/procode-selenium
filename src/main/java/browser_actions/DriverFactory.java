@@ -8,7 +8,11 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 public class DriverFactory {
@@ -44,6 +48,22 @@ public class DriverFactory {
         }
     }
 
+    public void setRemoteDriver(String browserName) {
+        List<String> arguments = List.of("--disable-notifications", "--disable-popup-blocking", "--incognito"); //"--headless"
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments(arguments);
+        options.setCapability(CapabilityType.UNHANDLED_PROMPT_BEHAVIOUR, "dismiss");
+        DesiredCapabilities caps = new DesiredCapabilities();
+        caps.setAcceptInsecureCerts(true);
+        caps.setBrowserName(browserName);
+        options.merge(caps);
+        try {
+            drivers.set(new RemoteWebDriver(new URL("http://localhost:4444"), options));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ThreadLocal<WebDriver> getDrivers() {
         return drivers;
     }
@@ -53,7 +73,7 @@ public class DriverFactory {
         FIREFOX,
         EDGE
 
-        //todo add more drivers safari opera
+        //todo add more drivers such a safari, opera ...
     }
 
 }

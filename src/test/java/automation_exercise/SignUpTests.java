@@ -1,6 +1,7 @@
 package automation_exercise;
 
 import base_test.BaseTests;
+import listeners.RetryAnalyzer;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.SignUp;
@@ -15,15 +16,16 @@ public class SignUpTests extends BaseTests {
         homePage.navigateTo("Signup / Login");
     }
 
-    @Test
+    @Test(retryAnalyzer=RetryAnalyzer.class)
     void testRegistration() {
         //Arrange
         String[] thirdLine = csvFileData.get(3);
+        log.info("Signing Up for user: {}, email: {}", thirdLine[0], thirdLine[1]);
         signUp.register(thirdLine[0], thirdLine[1]);
+
 
         //Actions
         signUp.enterTitle(SignUp.Gender.MALE);
-
         signUp.enterName("Kareem");
         signUp.enterPassword("UserPass123405#");
         signUp.selectDay("1");

@@ -2,18 +2,15 @@ package browser_actions;
 
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class BrowserActions {
-   private WebDriver driver;
+    private WebDriver driver;
 
     public BrowserActions(WebDriver driver) {
         this.driver = driver;
     }
 
-    public BrowserActions refresh(){
+    public BrowserActions refresh() {
         driver.navigate().refresh();
         return this;
     }
@@ -33,7 +30,7 @@ public class BrowserActions {
         return this;
     }
 
-    public BrowserActions setCookie(Cookie cookie){
+    public BrowserActions setCookie(Cookie cookie) {
         driver.manage().addCookie(cookie);
         return this;
     }
