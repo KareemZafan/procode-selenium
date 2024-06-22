@@ -25,6 +25,7 @@ public class SignUpTests extends BaseTests {
 
 
         //Actions
+        log.info("Selecting gender: Mr");
         signUp.enterTitle(SignUp.Gender.MALE);
         signUp.enterName("Kareem");
         signUp.enterPassword("UserPass123405#");
@@ -34,6 +35,7 @@ public class SignUpTests extends BaseTests {
         signUp.selectOptionWithText("Sign up for our newsletter!");
         signUp.selectOptionWithText("Receive special offers from our partners!");
 
+        log.info("username is: Kareem");
         signUp.enterFirstName("Kareem");
         signUp.enterLastName("Mohamed");
         signUp.enterCompany("X-Compny");
@@ -43,6 +45,7 @@ public class SignUpTests extends BaseTests {
         signUp.enterCity("Cairo");
         signUp.enterZipCode("11111");
         signUp.enterMobileNumber("01020202020");
+        log.warn("Account might not be created");
         signUp.clickCreateAccount();
 
         //Assertions

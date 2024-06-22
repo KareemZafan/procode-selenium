@@ -5,34 +5,33 @@
         <listener class-name="listeners.MyListener"></listener>
     </listeners>
 
-    <test name="Chrome1">
-        <parameter name="browser" value="chrome"></parameter>
-        <classes>
-            <class name="automation_exercise.SignUpTests"></class>
-        </classes>
-    </test>
-    <test name="Chrome2">
-        <parameter name="browser" value="chrome"></parameter>
-        <classes>
-            <class name="e2e_tests.LoginTests"></class>
-            <class name="e2e_tests.GoogleTests"></class>
-        </classes>
-    </test>
-    <test name="Chrome3">
-        <parameter name="browser" value="chrome"></parameter>
-        <classes>
-            <class name="e2e_tests.LoginTests"></class>
-            <class name="e2e_tests.GoogleTests"></class>
-        </classes>
-    </test>
-    <test name="Chrome4">
-        <parameter name="browser" value="chrome"></parameter>
-        <classes>
-            <class name="e2e_tests.LoginTests"></class>
-            <class name="e2e_tests.GoogleTests"></class>
-        </classes>
-    </test>
-
+       <test name="Chrome1">
+           <parameter name="browser" value="chrome"></parameter>
+           <classes>
+               <class name="automation_exercise.SignUpTests"></class>
+           </classes>
+       </test>
+       <test name="Chrome2">
+           <parameter name="browser" value="chrome"></parameter>
+           <classes>
+               <class name="e2e_tests.LoginTests"></class>
+               <class name="e2e_tests.GoogleTests"></class>
+           </classes>
+       </test>
+       <test name="Chrome3">
+           <parameter name="browser" value="chrome"></parameter>
+           <classes>
+               <class name="e2e_tests.LoginTests"></class>
+               <class name="e2e_tests.GoogleTests"></class>
+           </classes>
+       </test>
+       <test name="Chrome4">
+           <parameter name="browser" value="chrome"></parameter>
+           <classes>
+               <class name="e2e_tests.LoginTests"></class>
+               <class name="e2e_tests.GoogleTests"></class>
+           </classes>
+       </test>
 
 
 </suite>

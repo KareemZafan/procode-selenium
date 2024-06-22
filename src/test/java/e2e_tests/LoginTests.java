@@ -1,6 +1,7 @@
 package e2e_tests;
 
 import base_test.BaseTests;
+import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -15,6 +16,10 @@ public class LoginTests extends BaseTests {
     }
 
     @Test
+    @Issue("Login-123")
+    @Description("Login with valid credentials")
+    @Feature("Login Fearure-123")
+    @Severity(SeverityLevel.CRITICAL)
     void testLoginHappyScenario() {
         //Actions
         elementActions

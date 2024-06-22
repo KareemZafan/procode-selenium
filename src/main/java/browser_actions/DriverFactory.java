@@ -49,7 +49,8 @@ public class DriverFactory {
     }
 
     public void setRemoteDriver(String browserName) {
-        List<String> arguments = List.of("--disable-notifications", "--disable-popup-blocking", "--incognito"); //"--headless"
+        List<String> arguments = List.of("--disable-notifications", "--disable-popup-blocking", "--incognito", "--headless"); //"--headless"
+        //todo configure options for multiple different browsers
         ChromeOptions options = new ChromeOptions();
         options.addArguments(arguments);
         options.setCapability(CapabilityType.UNHANDLED_PROMPT_BEHAVIOUR, "dismiss");
