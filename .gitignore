@@ -9,7 +9,6 @@ target/
 *.iml
 *.ipr
 
-
 ### Rerpoting ###
 allure-results
 allure-report
@@ -31,6 +30,9 @@ allure-report
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+## Driver Binaries ###
+src/test/resources/firefox-executable/
 
 ### VS Code ###
 .vscode/
