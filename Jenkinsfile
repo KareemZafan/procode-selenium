@@ -4,7 +4,7 @@ pipeline {
     environment {
         SONARQUBE_URL = 'http://your-sonarqube-server:9000'
         SONARQUBE_CREDENTIALS = 'sonarqube-credentials-id'
-        ALLURE_RESULTS_DIRECTORY = 'target/allure-results'
+        ALLURE_RESULTS_DIRECTORY = './allure-results'
         MAVEN_HOME = tool name: 'Maven 3.x', type: 'maven'
     }
 
