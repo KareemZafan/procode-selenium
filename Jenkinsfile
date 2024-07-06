@@ -1,12 +1,17 @@
 pipeline {
-    agent any // Use any available agent
+     agent {
+            dockerfile {
+                label "docker"
+                args "-v /tmp/maven:/home/jenkins/.m2 -e MAVEN_CONFIG=/home/jenkins/.m2"
+            }
+        }
 
     triggers {
         cron('0 7 * * *') // Runs every day at 7:00 AM
     }
 
     tools {
-        Maven 'Maven' // Maven tool configuration name
+        maven "3.6.0"
         Docker 'Docker' // Docker tool configuration name (if you have configured it)
     }
 
