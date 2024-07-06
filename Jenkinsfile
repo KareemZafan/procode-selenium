@@ -5,8 +5,14 @@ pipeline {
         cron('0 7 * * *') // Runs every day at 7:00 AM
     }
 
+    tools {
+        maven 'M3' // Maven tool configuration name
+        dockerTool 'Docker' // Docker tool configuration name (if you have configured it)
+    }
+
     environment {
         DOCKER_IMAGE = 'procode-selenium'
+        MAVEN_HOME = tool 'M3' // Referencing the Maven tool
     }
 
     stages {
@@ -55,19 +61,16 @@ pipeline {
 
     post {
         always {
-            node('Master_Node') {
-                // Archive test results
-                archiveArtifacts artifacts: 'target/surefire-reports/*.xml', allowEmptyArchive: true
-                archiveArtifacts artifacts: 'target/allure-results/**', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'target/surefire-reports/*.xml', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'target/allure-results/**', allowEmptyArchive: true
 
-                // Generate Allure report
-                allure([
-                    includeProperties: false,
-                    jdk: '',
-                    properties: [],
-                    results: [[path: './allure-results']]
-                ])
-            }
+            // Generate Allure report
+            allure([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                results: [[path: './allure-results']]
+            ])
         }
     }
 }
