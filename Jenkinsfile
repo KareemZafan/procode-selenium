@@ -1,10 +1,14 @@
 pipeline {
-     agent {
-            dockerfile {
-                label "docker"
-                args "-v /tmp/maven:/home/jenkins/.m2 -e MAVEN_CONFIG=/home/jenkins/.m2"
-            }
-        }
+      agent {
+              docker {
+                  image 'maven:3.8.4-openjdk-17'
+                  args '-v /var/run/docker.sock:/var/run/docker.sock'
+              }
+          }
+          environment {
+              MAVEN_OPTS = "-Dmaven.repo.local=.m2/repository"
+              DOCKER_HOST = "unix:///var/run/docker.sock"
+          }
 
     triggers {
         cron('0 7 * * *') // Runs every day at 7:00 AM
@@ -12,7 +16,6 @@ pipeline {
 
     tools {
         maven "3.6.0"
-        Docker 'Docker' // Docker tool configuration name (if you have configured it)
     }
 
     environment {
@@ -72,7 +75,6 @@ pipeline {
             // Generate Allure report
             allure([
                 includeProperties: false,
-                jdk: '',
                 properties: [],
                 results: [[path: './allure-results']]
             ])
