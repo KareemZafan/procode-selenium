@@ -2,10 +2,8 @@ pipeline {
     agent any // Use any available agent
 
     environment {
-        SONARQUBE_URL = 'http://your-sonarqube-server:9000'
-        SONARQUBE_CREDENTIALS = 'sonarqube-credentials-id'
         ALLURE_RESULTS_DIRECTORY = './allure-results'
-        MAVEN_HOME = tool name: 'Maven 3.x', type: 'maven'
+        MAVEN_HOME = tool name: 'Maven 3.6.3', type: 'maven'
     }
 
     triggers {
@@ -42,19 +40,6 @@ pipeline {
                 script {
                     // Run TestNG tests
                     sh "${MAVEN_HOME}/bin/mvn test"
-                }
-            }
-        }
-
-        stage('SonarQube Analysis') {
-            environment {
-                scannerHome = tool 'SonarQubeScanner'
-            }
-            steps {
-                script {
-                    withSonarQubeEnv('SonarQube') {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
                 }
             }
         }
