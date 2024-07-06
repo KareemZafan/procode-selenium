@@ -6,8 +6,8 @@ pipeline {
     }
 
     tools {
-        maven 'M3' // Maven tool configuration name
-        dockerTool 'Docker' // Docker tool configuration name (if you have configured it)
+        Maven 'M3' // Maven tool configuration name
+        Docker 'Docker' // Docker tool configuration name (if you have configured it)
     }
 
     environment {
