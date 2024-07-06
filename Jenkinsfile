@@ -12,14 +12,6 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                script {
-                    // Execute the build process
-                    sh "mvn clean package"
-                }
-            }
-        }
 
         stage('Start Selenium Grid') {
             steps {
