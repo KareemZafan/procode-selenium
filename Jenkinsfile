@@ -1,10 +1,15 @@
 pipeline {
-    agent any
+    agent any // Use any available agent
 
     environment {
         SONARQUBE_URL = 'http://your-sonarqube-server:9000'
         SONARQUBE_CREDENTIALS = 'sonarqube-credentials-id'
-        ALLURE_RESULTS_DIRECTORY = 'allure-results'
+        ALLURE_RESULTS_DIRECTORY = 'target/allure-results'
+        MAVEN_HOME = tool name: 'Maven 3.x', type: 'maven'
+    }
+
+    triggers {
+        cron('0 7 * * *') // Runs every day at 7:00 AM
     }
 
     stages {
@@ -18,7 +23,7 @@ pipeline {
             steps {
                 script {
                     // Execute the build process
-                    sh 'mvn clean compile'
+                    sh "${MAVEN_HOME}/bin/mvn clean package"
                 }
             }
         }
@@ -27,7 +32,7 @@ pipeline {
             steps {
                 script {
                     // Start Docker Compose for Selenium Grid
-                    sh 'docker-compose -f docker-compose.yaml up -d --scale chrome=2 --scale firefox=2 '
+                    sh 'docker-compose -f docker-compose.yml up -d --scale chrome=2 --scale fierfox=2'
                 }
             }
         }
@@ -36,7 +41,7 @@ pipeline {
             steps {
                 script {
                     // Run TestNG tests
-                    sh 'mvn -DxmlFile=testng.xml test'
+                    sh "${MAVEN_HOME}/bin/mvn test"
                 }
             }
         }
