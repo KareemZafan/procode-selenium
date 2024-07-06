@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     // Start Docker Compose for Selenium Grid
-                    sh 'docker-compose -f docker-compose.yml up -d --scale chrome=2 --scale fierfox=2'
+                    sh 'docker-compose -f docker-compose.yml up -d --scale chrome=2 --scale firefox=2'
                 }
             }
         }
@@ -43,8 +43,27 @@ pipeline {
             steps {
                 script {
                     // Stop Docker Compose for Selenium Grid
-                    sh 'docker-compose -f docker-compose.yaml down'
+                    sh 'docker-compose -f docker-compose.yml down'
                 }
             }
         }
+    }
+
+    post {
+        always {
+            node {
+                // Archive test results
+                archiveArtifacts artifacts: 'target/surefire-reports/*.xml', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'target/allure-results/**', allowEmptyArchive: true
+
+                // Generate Allure report
+                allure([
+                    includeProperties: false,
+                    jdk: '',
+                    properties: [],
+                    results: [[path: './allure-results']]
+                ])
+            }
+        }
+    }
 }
