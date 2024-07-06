@@ -51,7 +51,7 @@ pipeline {
 
     post {
         always {
-            node {
+            node('Master_Node') {
                 // Archive test results
                 archiveArtifacts artifacts: 'target/surefire-reports/*.xml', allowEmptyArchive: true
                 archiveArtifacts artifacts: 'target/allure-results/**', allowEmptyArchive: true
@@ -61,7 +61,7 @@ pipeline {
                     includeProperties: false,
                     jdk: '',
                     properties: [],
-                    results: [[path: './allure-results']]
+                    results: [[path: 'target/allure-results']]
                 ])
             }
         }
