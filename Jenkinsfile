@@ -14,11 +14,6 @@ pipeline {
         cron('0 7 * * *') // Runs every day at 7:00 AM
     }
 
-    environment {
-        DOCKER_IMAGE = 'procode-selenium'
-        MAVEN_HOME = tool 'M3' // Referencing the Maven tool
-    }
-
     stages {
         stage('Checkout') {
             steps {
