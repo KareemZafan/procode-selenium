@@ -1,11 +1,6 @@
 pipeline {
     agent any // Use any available agent
 
-    environment {
-        ALLURE_RESULTS_DIRECTORY = './allure-results'
-        MAVEN_HOME = tool name: 'Maven 3.6.3', type: 'maven'
-    }
-
     triggers {
         cron('0 7 * * *') // Runs every day at 7:00 AM
     }
@@ -21,7 +16,7 @@ pipeline {
             steps {
                 script {
                     // Execute the build process
-                    sh "${MAVEN_HOME}/bin/mvn clean package"
+                    sh "mvn clean package"
                 }
             }
         }
@@ -39,20 +34,7 @@ pipeline {
             steps {
                 script {
                     // Run TestNG tests
-                    sh "${MAVEN_HOME}/bin/mvn test"
-                }
-            }
-        }
-
-        stage('Allure Report') {
-            steps {
-                script {
-                    allure([
-                        includeProperties: false,
-                        jdk: '',
-                        properties: [],
-                        results: [[path: ALLURE_RESULTS_DIRECTORY]]
-                    ])
+                    sh "mvn -DxmlFile=testng.xml test"
                 }
             }
         }
@@ -65,16 +47,4 @@ pipeline {
                 }
             }
         }
-    }
-
-    post {
-        always {
-            script {
-                // Archive the test results and reports
-                archiveArtifacts artifacts: 'target/surefire-reports/*.xml', allowEmptyArchive: true
-                archiveArtifacts artifacts: 'target/allure-results/**', allowEmptyArchive: true
-                junit 'target/surefire-reports/*.xml'
-            }
-        }
-    }
 }
