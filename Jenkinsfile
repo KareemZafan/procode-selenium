@@ -5,6 +5,10 @@ pipeline {
         cron('0 7 * * *') // Runs every day at 7:00 AM
     }
 
+    environment {
+        DOCKER_IMAGE = 'procode-selenium'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -12,6 +16,14 @@ pipeline {
             }
         }
 
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build the Docker image
+                    sh 'docker build -t ${DOCKER_IMAGE} .'
+                }
+            }
+        }
 
         stage('Start Selenium Grid') {
             steps {
@@ -25,8 +37,8 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    // Run TestNG tests
-                    sh "mvn -DxmlFile=testng.xml test"
+                    // Run tests in Docker container
+                    sh 'docker run --rm ${DOCKER_IMAGE}'
                 }
             }
         }
@@ -53,7 +65,7 @@ pipeline {
                     includeProperties: false,
                     jdk: '',
                     properties: [],
-                    results: [[path: 'target/allure-results']]
+                    results: [[path: './allure-results']]
                 ])
             }
         }
